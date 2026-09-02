@@ -125,7 +125,7 @@
   .p-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
   .p-h2 {
     font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
-    font-weight: 700; font-size: clamp(13px, 1.7vh, 16.5px); color: #0f172a; margin: 0 0 1.2vh;
+    font-weight: 700; font-size: clamp(14.5px, 1.9vh, 18.5px); color: #0f172a; margin: 0 0 1.2vh;
     flex-shrink: 0;
   }
 
@@ -136,8 +136,8 @@
     gap: 1vh 1vw;
   }
   .b-row {
-    display: flex; flex-direction: column; justify-content: center; gap: 10px;
-    border-radius: 14px; padding: 1.4vh 1.2vw;
+    display: flex; flex-direction: column; justify-content: center; gap: 12px;
+    border-radius: 14px; padding: 1.6vh 1.4vw;
     border: 1px solid transparent; min-height: 0;
   }
   .b-row.c { background: var(--cyan-bg); border-color: var(--cyan-border); }
@@ -145,15 +145,15 @@
   .b-row.y { background: var(--yellow-bg); border-color: var(--yellow-border); }
 
   .b-icon {
-    width: clamp(28px, 3.8vh, 38px); height: clamp(28px, 3.8vh, 38px);
-    border-radius: 10px; background: #fff;
+    width: clamp(38px, 5.6vh, 52px); height: clamp(38px, 5.6vh, 52px);
+    border-radius: 12px; background: #fff;
     display: flex; align-items: center; justify-content: center;
-    font-size: clamp(14px, 1.9vh, 19px); flex-shrink: 0;
+    font-size: clamp(19px, 2.8vh, 27px); flex-shrink: 0;
     box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.06);
-    margin-bottom: 2px;
+    margin-bottom: 4px;
   }
-  .b-row h3 { margin: 0; font-size: clamp(12px, 1.5vh, 14.5px); font-weight: 700; line-height: 1.3; }
-  .b-row p { margin: 0; font-size: clamp(10px, 1.2vh, 12px); line-height: 1.5; color: #475569; }
+  .b-row h3 { margin: 0; font-size: clamp(15px, 2.1vh, 19px); font-weight: 700; line-height: 1.32; }
+  .b-row p { margin: 0; font-size: clamp(12.5px, 1.6vh, 15.5px); line-height: 1.5; color: #475569; }
 
   .b-row.c h3 { color: #0e7490; }
   .b-row.m h3 { color: #be185d; }
@@ -171,21 +171,21 @@
   .compare-col.new { background: #0f172a; color: #fff; }
 
   .compare-head {
-    font-family: 'IBM Plex Mono', monospace; font-size: clamp(10.5px, 1.15vh, 12.5px);
+    font-family: 'IBM Plex Mono', monospace; font-size: clamp(12px, 1.4vh, 15px);
     font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
     margin-bottom: 1.4vh; display: flex; align-items: center; gap: 6px; flex-shrink: 0;
   }
   .compare-col.old .compare-head { color: #64748b; }
   .compare-col.new .compare-head { color: #38bdf8; }
 
-  .compare-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 2vh; flex: 1; }
-  .compare-list li { font-size: clamp(10.5px, 1.3vh, 13px); line-height: 1.45; display: flex; gap: 9px; align-items: flex-start; }
+  .compare-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 2.4vh; flex: 1; }
+  .compare-list li { font-size: clamp(13.5px, 1.7vh, 17px); line-height: 1.45; display: flex; gap: 10px; align-items: flex-start; }
 
   .compare-col.old li { color: #475569; }
-  .compare-col.old li::before { content: '✕'; color: #ef4444; font-weight: bold; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+  .compare-col.old li::before { content: '✕'; color: #ef4444; font-weight: bold; font-size: 15px; flex-shrink: 0; margin-top: 2px; }
 
   .compare-col.new li { color: #cbd5e1; }
-  .compare-col.new li::before { content: '✓'; color: #38bdf8; font-weight: bold; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+  .compare-col.new li::before { content: '✓'; color: #38bdf8; font-weight: bold; font-size: 15px; flex-shrink: 0; margin-top: 2px; }
 
   /* ===== Footer แถบบาง ===== */
   .p-footer {
