@@ -27,6 +27,8 @@
     gap: 12px;
     color: #6b6b63;
     font-size: 14px;
+    text-align: center;
+    padding: 20px;
   }
   .spinner {
     width: 32px;
@@ -47,25 +49,81 @@
     transition: opacity 0.3s ease;
   }
   iframe.loaded { opacity: 1; }
+
+  /* โผล่มาหลังรอนานผิดปกติ เผื่อเคส iframe โหลดหน้า login ของ Google ไม่ขึ้น (โดนบล็อกด้วย X-Frame-Options ของ Google เอง) */
+  #fallback {
+    display: none;
+    margin-top: 4px;
+  }
+  #fallback a {
+    color: #12233d;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* ปุ่มลอยมุมขวาล่าง ลิงก์ไปหน้าสรุปประโยชน์โครงการ (benefit.html)
+     ตั้งใจวางไว้ "มุมล่าง" ไม่ใช่มุมบน เพราะแดชบอร์ดจริงข้างใน iframe ก็มีปุ่ม
+     "Project Benefit" ของตัวเองอยู่มุมขวาบนอยู่แล้ว (ลิงก์ไปหน้า Apps Script คนละหน้ากัน)
+     ถ้าวางซ้อนมุมเดียวกันจะกดสับสน/โดนปุ่มผิดได้ */
+  #benefitLink {
+    position: fixed;
+    bottom: 18px;
+    right: 18px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #12233d;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 24px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.35);
+    transition: background 0.15s, transform 0.15s;
+  }
+  #benefitLink:hover { background: #1e3a5f; transform: translateY(-1px); }
 </style>
 </head>
 <body>
-
+<a id="benefitLink" href="benefit.html" title="หน้าสรุปประโยชน์โครงการ (โฮสต์บน GitHub Pages)">📄 สรุปประโยชน์โครงการ</a>
 <div id="loading">
   <div class="spinner"></div>
   <div>กำลังโหลดแดชบอร์ด...</div>
+  <div id="fallback">
+    โหลดนานผิดปกติ? อาจเป็นเพราะยังไม่ได้ล็อกอิน Google ในเบราว์เซอร์นี้<br>
+    <a id="fallbackLink" href="#" target="_blank" rel="noopener">คลิกที่นี่เพื่อเปิดแดชบอร์ดโดยตรง</a>
+  </div>
 </div>
-
 <!--
   ★★★ แก้ src ด้านล่างนี้เป็น Web app URL ของคุณเอง (ตัวที่ลงท้ายด้วย /exec) ★★★
   ตัวอย่าง: https://script.google.com/macros/s/AKfycby.../exec
 -->
 <iframe
   id="dashboardFrame"
-  src="https://script.google.com/macros/s/AKfycbzEfY_eL2Qi7G-x-aJhue196iZeO2A1pJ9A0prVy0fcjnib2sA6nxfcoCro0bhZP3RI9g/exec"
+  src="https://script.google.com/macros/s/AKfycby_67Ra9hCvv3G0FN4pyp_tnTIbloLkCob0LV0ArCbXLsbmjQTG5gUYe2VqKvNfmPA1ig/exec"
   allow="geolocation"
-  onload="document.getElementById('loading').style.display='none'; this.classList.add('loaded');">
+  onload="onDashboardFrameLoad()">
 </iframe>
 
+<script>
+  const DASHBOARD_URL = document.getElementById('dashboardFrame').src;
+  document.getElementById('fallbackLink').href = DASHBOARD_URL;
+
+  let hasLoadedOnce = false;
+  function onDashboardFrameLoad(){
+    hasLoadedOnce = true;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('dashboardFrame').classList.add('loaded');
+  }
+
+  // ถ้าผ่านไป 8 วินาทีแล้วยังไม่โหลดเสร็จ (onload ยังไม่ถูกเรียก) โชว์ลิงก์สำรองให้กดเปิดตรงแทน
+  setTimeout(() => {
+    if (!hasLoadedOnce) {
+      document.getElementById('fallback').style.display = 'block';
+    }
+  }, 8000);
+</script>
 </body>
 </html>
