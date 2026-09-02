@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infographic — ประโยชน์ของระบบติดตามหมึกเครื่องพิมพ์</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-main: #0f172a;
+    --text-primary: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #e2e8f0;
+
+    --cyan: #06b6d4;   --cyan-bg: #ecfeff;   --cyan-border: #a5f3fc;
+    --magenta: #ec4899; --magenta-bg: #fdf2f8; --magenta-border: #fbcfe8;
+    --yellow: #eab308;  --yellow-bg: #fefce8;  --yellow-border: #fef08a;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; height: 100%;
+    background-color: #f1f5f9;
+    color: var(--text-primary);
+    font-family: 'Noto Sans Thai', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow: hidden; /* หน้านี้ตั้งใจให้พอดี 1 จอ ไม่เลื่อน */
+  }
+
+  .dots { display: inline-flex; gap: 5px; align-items: center; }
+  .dots span { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dots .c { background: var(--cyan); }
+  .dots .m { background: var(--magenta); }
+  .dots .y { background: var(--yellow); }
+  .dots .k { background: #334155; }
+
+  /* ===== ลิงก์กลับแดชบอร์ด (ลอยมุมบนซ้าย ไม่กิน layout) ===== */
+  .back-link {
+    position: fixed; top: 1.4vh; left: 1.4vh; z-index: 20;
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.9); backdrop-filter: blur(6px);
+    padding: 5px 12px; border-radius: 100px; box-shadow: 0 2px 8px rgba(15,23,42,0.1);
+    color: #0f172a; text-decoration: none; font-weight: 600;
+    font-size: clamp(10px, 1.2vh, 13px);
+  }
+
+  /* ===== โครงหน้าเต็มจอ 1 หน้า ===== */
+  .page {
+    height: 100vh; width: 100vw;
+    display: flex; flex-direction: column;
+    padding: 1.6vh 2vw;
+    gap: 1.4vh;
+  }
+
+  /* ===== Header (กะทัดรัด) ===== */
+  .p-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #fff; border-radius: 18px;
+    padding: 1.8vh 3vw;
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: space-between; gap: 3vw;
+    flex-shrink: 0;
+  }
+  .p-header::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 10% 30%, rgba(6, 182, 212, 0.28), transparent 45%),
+      radial-gradient(circle at 90% 20%, rgba(236, 72, 153, 0.22), transparent 45%),
+      radial-gradient(circle at 60% 100%, rgba(234, 179, 8, 0.16), transparent 50%);
+    pointer-events: none;
+  }
+  .p-header-inner { position: relative; z-index: 1; max-width: 58%; flex-shrink: 1; }
+  .p-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 3px 14px; border-radius: 100px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(9px, 1.1vh, 11px); letter-spacing: 0.08em; color: #e2e8f0;
+    margin-bottom: 0.9vh;
+  }
+  .p-title {
+    font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+    font-weight: 800; font-size: clamp(18px, 2.6vh, 27px); line-height: 1.25;
+    margin: 0; letter-spacing: -0.02em;
+  }
+  .p-title .hl {
+    background: linear-gradient(120deg, #fef08a, #eab308);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .p-sub {
+    font-size: clamp(10px, 1.15vh, 12.5px); color: #94a3b8;
+    margin: 0.6vh 0 0; line-height: 1.5; font-weight: 400; max-width: 480px;
+  }
+
+  /* ===== Trio (สรุปขั้นตอนทำงาน แนวนอน) ===== */
+  .trio {
+    display: flex; flex-direction: column; gap: 0.9vh;
+    position: relative; z-index: 1; flex-shrink: 0; text-align: right;
+    min-width: max-content;
+  }
+  .trio-item { white-space: nowrap; }
+  .trio-item .t-title { font-weight: 700; font-size: clamp(10.5px, 1.25vh, 12.5px); color: #fff; white-space: nowrap; }
+  .trio-item .t-sub { font-size: clamp(8.5px, 1vh, 10px); color: #94a3b8; white-space: nowrap; }
+
+  /* ===== เนื้อหาหลัก: 2 คอลัมน์ (benefits | comparison) ===== */
+  .main-grid {
+    flex: 1; min-height: 0;
+    display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.6vw;
+  }
+
+  .panel {
+    background: #fff; border-radius: 18px; border: 1px solid var(--border-color);
+    padding: 1.6vh 1.8vw; display: flex; flex-direction: column; min-height: 0;
+    box-shadow: 0 8px 24px rgba(15,23,42,0.04);
+  }
+
+  .p-eyebrow {
+    font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1vh, 10.5px);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--cyan); font-weight: 600;
+    display: flex; align-items: center; gap: 10px; margin-bottom: 0.4vh; flex-shrink: 0;
+  }
+  .p-eyebrow::after { content: ''; flex: 1; height: 1px; background: var(--border-color); }
+  .p-h2 {
+    font-family: 'Space Grotesk', 'Noto Sans Thai', sans-serif;
+    font-weight: 700; font-size: clamp(13px, 1.7vh, 16.5px); color: #0f172a; margin: 0 0 1.2vh;
+    flex-shrink: 0;
+  }
+
+  /* ===== Benefit grid: 3x2 กะทัดรัด ===== */
+  .b-stack {
+    flex: 1; min-height: 0;
+    display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
+    gap: 1vh 1vw;
+  }
+  .b-row {
+    display: flex; flex-direction: column; justify-content: center; gap: 10px;
+    border-radius: 14px; padding: 1.4vh 1.2vw;
+    border: 1px solid transparent; min-height: 0;
+  }
+  .b-row.c { background: var(--cyan-bg); border-color: var(--cyan-border); }
+  .b-row.m { background: var(--magenta-bg); border-color: var(--magenta-border); }
+  .b-row.y { background: var(--yellow-bg); border-color: var(--yellow-border); }
+
+  .b-icon {
+    width: clamp(28px, 3.8vh, 38px); height: clamp(28px, 3.8vh, 38px);
+    border-radius: 10px; background: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(14px, 1.9vh, 19px); flex-shrink: 0;
+    box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2px;
+  }
+  .b-row h3 { margin: 0; font-size: clamp(12px, 1.5vh, 14.5px); font-weight: 700; line-height: 1.3; }
+  .b-row p { margin: 0; font-size: clamp(10px, 1.2vh, 12px); line-height: 1.5; color: #475569; }
+
+  .b-row.c h3 { color: #0e7490; }
+  .b-row.m h3 { color: #be185d; }
+  .b-row.y h3 { color: #a16207; }
+
+  /* ===== Comparison (before/after) กะทัดรัด ===== */
+  .compare-grid {
+    flex: 1; min-height: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1vw;
+    border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+  .compare-col { padding: 1.6vh 1.2vw; display: flex; flex-direction: column; min-height: 0; }
+  .compare-col.old { background: #f8fafc; }
+  .compare-col.new { background: #0f172a; color: #fff; }
+
+  .compare-head {
+    font-family: 'IBM Plex Mono', monospace; font-size: clamp(10.5px, 1.15vh, 12.5px);
+    font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 1.4vh; display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+  }
+  .compare-col.old .compare-head { color: #64748b; }
+  .compare-col.new .compare-head { color: #38bdf8; }
+
+  .compare-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: center; gap: 2vh; flex: 1; }
+  .compare-list li { font-size: clamp(10.5px, 1.3vh, 13px); line-height: 1.45; display: flex; gap: 9px; align-items: flex-start; }
+
+  .compare-col.old li { color: #475569; }
+  .compare-col.old li::before { content: '✕'; color: #ef4444; font-weight: bold; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+  .compare-col.new li { color: #cbd5e1; }
+  .compare-col.new li::before { content: '✓'; color: #38bdf8; font-weight: bold; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+
+  /* ===== Footer แถบบาง ===== */
+  .p-footer {
+    flex-shrink: 0;
+    display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px;
+    padding: 0.2vh 0.4vw;
+  }
+  .p-footer .brand {
+    display: flex; align-items: center; gap: 8px;
+    font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1vh, 11px); font-weight: 600; color: #334155;
+  }
+  .p-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .p-tags span {
+    font-family: 'IBM Plex Mono', monospace; font-size: clamp(8px, 0.9vh, 9.5px); padding: 3px 10px;
+    border-radius: 100px; background: #fff; border: 1px solid #e2e8f0; color: #475569; font-weight: 500;
+  }
+
+  /* ===== มือถือ/จอแคบมาก: ยอมให้เลื่อนได้ อ่านง่ายกว่าอัดทุกอย่างในจอเดียว ===== */
+  @media (max-width: 760px), (max-height: 480px) {
+    html, body { overflow: auto; }
+    .page { height: auto; min-height: 100vh; padding: 12px; gap: 12px; }
+    .p-header { flex-direction: column; align-items: flex-start; padding: 20px; }
+    .trio { text-align: left; grid-template-columns: 1fr; gap: 8px; margin-top: 10px; }
+    .main-grid { grid-template-columns: 1fr; gap: 12px; }
+    .b-stack { grid-template-columns: 1fr; grid-template-rows: none; gap: 8px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .p-title { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<a class="back-link" href="index.html">← กลับไปแดชบอร์ด</a>
+
+<div class="page">
+
+  <!-- Header + Trio -->
+  <div class="p-header">
+    <div class="p-header-inner">
+      <div class="p-tag">
+        <span class="dots"><span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span></span>
+        &nbsp;สรุปประโยชน์โครงการ
+      </div>
+      <h1 class="p-title">ระบบติดตามหมึกเครื่องพิมพ์ ทำงาน<span class="hl">แทนคน</span></h1>
+      <p class="p-sub">จากงานที่เคยต้องเปิดไฟล์เช็คทีละเครื่อง สู่ระบบที่ดึงข้อมูล วิเคราะห์ และแจ้งเตือนอัตโนมัติทุกวัน</p>
+    </div>
+    <div class="trio">
+      <div class="trio-item">
+        <div>
+          <div class="t-title">📥 ดึงข้อมูลอัตโนมัติ</div>
+          <div class="t-sub">ทุกเช้า 08:20 น.</div>
+        </div>
+      </div>
+      <div class="trio-item">
+        <div>
+          <div class="t-title">🔍 วิเคราะห์ & คาดการณ์</div>
+          <div class="t-sub">ก่อนหมึกหมดจริง</div>
+        </div>
+      </div>
+      <div class="trio-item">
+        <div>
+          <div class="t-title">📲 แจ้งเตือนถึงมือ</div>
+          <div class="t-sub">ผ่าน LINE ทันที</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- เนื้อหาหลัก -->
+  <div class="main-grid">
+
+    <!-- Benefits -->
+    <div class="panel">
+      <div class="p-eyebrow">KEY BENEFITS</div>
+      <h2 class="p-h2">6 เหตุผลที่ระบบนี้คุ้มค่ากับการใช้งาน</h2>
+      <div class="b-stack">
+        <div class="b-row c">
+          <div class="b-icon">⏱️</div>
+          <h3>ลดเวลาทำงานของทีม</h3>
+          <p>ระบบประมวลผลเสร็จก่อนทีมเข้างาน</p>
+        </div>
+        <div class="b-row m">
+          <div class="b-icon">📉</div>
+          <h3>ลดการพิมพ์สะดุดกลางงาน</h3>
+          <p>เตือนล่วงหน้าก่อนหมึกหมดจริง</p>
+        </div>
+        <div class="b-row y">
+          <div class="b-icon">🎯</div>
+          <h3>รู้ว่าควรไปสาขาไหนก่อน</h3>
+          <p>จัดคะแนนความสำคัญให้อัตโนมัติ</p>
+        </div>
+        <div class="b-row c">
+          <div class="b-icon">💬</div>
+          <h3>ใช้งานง่าย ไม่ต้องเรียนรู้ใหม่</h3>
+          <p>เข้าถึงผ่าน LINE ที่ใช้อยู่แล้ว</p>
+        </div>
+        <div class="b-row m">
+          <div class="b-icon">📊</div>
+          <h3>มีข้อมูลสนับสนุนการตัดสินใจ</h3>
+          <p>วิเคราะห์แนวโน้มจากประวัติสะสม</p>
+        </div>
+        <div class="b-row y">
+          <div class="b-icon">💰</div>
+          <h3>ต้นทุนต่ำ ดูแลง่าย</h3>
+          <p>ไม่มีค่า hosting เพิ่มเติม</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Comparison -->
+    <div class="panel">
+      <div class="p-eyebrow">BEFORE vs AFTER</div>
+      <h2 class="p-h2">เปรียบเทียบความแตกต่าง</h2>
+      <div class="compare-grid">
+        <div class="compare-col old">
+          <div class="compare-head">🔴 วิธีเดิม</div>
+          <ul class="compare-list">
+            <li>เปิดไฟล์เช็คเองทีละแถว</li>
+            <li>รู้หมึกหมดจากพนักงานแจ้ง</li>
+            <li>ไม่รู้จะไปสาขาไหนก่อน</li>
+            <li>ไม่มีประวัติเก็บย้อนหลัง</li>
+            <li>พึ่งคนกรอกฟอร์มยืนยัน</li>
+          </ul>
+        </div>
+        <div class="compare-col new">
+          <div class="compare-head">🟢 ระบบใหม่</div>
+          <ul class="compare-list">
+            <li>ดึง-สรุปข้อมูลอัตโนมัติทุกเช้า</li>
+            <li>แจ้งเตือนล่วงหน้าก่อนหมึกหมด</li>
+            <li>จัดลำดับสาขาพร้อมเหตุผล</li>
+            <li>เก็บประวัติย้อนหลัง 30 วัน</li>
+            <li>ตรวจจับการเปลี่ยนหมึกอัตโนมัติ</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="p-footer">
+    <div class="brand">
+      <span class="dots"><span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span></span>
+      &nbsp;ระบบติดตามหมึกเครื่องพิมพ์
+    </div>
+    <div class="p-tags">
+      <span>Apps Script</span>
+      <span>Google Sheets</span>
+      <span>Gmail API</span>
+      <span>LINE Messaging API</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
