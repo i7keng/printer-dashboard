@@ -4,6 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>แดชบอร์ดเครื่องพิมพ์ — Toner Low</title>
+
+<!-- ===== PWA: manifest + ไอคอน + theme color ===== -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#12233d">
+<link rel="icon" href="icon-192.png" type="image/png">
+
+<!-- รองรับ "Add to Home Screen" บน iOS โดยเฉพาะ (Safari ไม่อ่าน manifest.json เต็มรูปแบบ) -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Toner Dashboard">
+<link rel="apple-touch-icon" href="icon-192.png">
+
 <style>
   /* ==========================================================
      แก้ URL ตรงนี้ให้เป็น Web app URL ของคุณเอง (บรรทัด src ของ iframe ด้านล่าง)
@@ -102,7 +114,7 @@
 -->
 <iframe
   id="dashboardFrame"
-  src="https://script.google.com/macros/s/AKfycbyB4C_lOieVAFSJycPPgTrDc2tDES7KcxpltgK1Fgi5SbjElCpD6bTYmvoIBjLZqbQW3Q/exec"
+  src="https://script.google.com/macros/s/AKfycby_67Ra9hCvv3G0FN4pyp_tnTIbloLkCob0LV0ArCbXLsbmjQTG5gUYe2VqKvNfmPA1ig/exec"
   allow="geolocation"
   onload="onDashboardFrameLoad()">
 </iframe>
@@ -124,6 +136,16 @@
       document.getElementById('fallback').style.display = 'block';
     }
   }, 8000);
+
+  // ลงทะเบียน Service Worker เพื่อให้ "Add to Home Screen" ติดตั้งเป็นแอปได้
+  // (แคชเฉพาะเปลือกแอปหน้านี้ ไม่แตะข้อมูลข้างใน iframe — ดูรายละเอียดใน service-worker.js)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js').catch((err) => {
+        console.warn('ลงทะเบียน Service Worker ไม่สำเร็จ:', err);
+      });
+    });
+  }
 </script>
 </body>
 </html>
