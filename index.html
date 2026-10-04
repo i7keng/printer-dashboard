@@ -9,7 +9,6 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#12233d">
 <link rel="icon" href="icon-192.png" type="image/png">
-
 <!-- รองรับ "Add to Home Screen" บน iOS โดยเฉพาะ (Safari ไม่อ่าน manifest.json เต็มรูปแบบ) -->
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -29,6 +28,7 @@
     background: #f6f4ee;
     font-family: 'Noto Sans Thai', sans-serif;
   }
+
   #loading {
     position: fixed;
     inset: 0;
@@ -51,6 +51,7 @@
     animation: spin 0.8s linear infinite;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
   iframe {
     position: fixed;
     inset: 0;
@@ -96,10 +97,34 @@
     transition: background 0.15s, transform 0.15s;
   }
   #benefitLink:hover { background: #1e3a5f; transform: translateY(-1px); }
+
+  /* ปุ่มลอยมุมซ้ายล่าง ลิงก์ไปคู่มือการใช้งาน (manual/) */
+  #manualLink {
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #06a24a;
+    color: #fff;
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 24px;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.35);
+    transition: background 0.15s, transform 0.15s;
+  }
+  #manualLink:hover { background: #059142; transform: translateY(-1px); }
 </style>
 </head>
 <body>
+
 <a id="benefitLink" href="benefit.html" title="หน้าสรุปประโยชน์โครงการ (โฮสต์บน GitHub Pages)">📄 สรุปประโยชน์โครงการ</a>
+<a id="manualLink" href="manual/" title="คู่มือการใช้งาน">📖 คู่มือการใช้งาน</a>
+
 <div id="loading">
   <div class="spinner"></div>
   <div>กำลังโหลดแดชบอร์ด...</div>
@@ -108,6 +133,7 @@
     <a id="fallbackLink" href="#" target="_blank" rel="noopener">คลิกที่นี่เพื่อเปิดแดชบอร์ดโดยตรง</a>
   </div>
 </div>
+
 <!--
   ★★★ แก้ src ด้านล่างนี้เป็น Web app URL ของคุณเอง (ตัวที่ลงท้ายด้วย /exec) ★★★
   ตัวอย่าง: https://script.google.com/macros/s/AKfycby.../exec
@@ -147,5 +173,6 @@
     });
   }
 </script>
+
 </body>
 </html>
