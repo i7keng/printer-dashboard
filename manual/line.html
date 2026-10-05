@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>คู่มือผู้ใช้งาน LINE Bot</title>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<style>
+:root{--ink:#1a2540;--mut:#64708a;--bg:#f4f7fc;--line:#e3e9f4;--pri:#1d4ed8;--navy:#14223f}
+*{box-sizing:border-box}@page{size:A4;margin:12mm}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 'Sarabun','Noto Sans Thai','Loma',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+.hero{background:linear-gradient(135deg,#14223f,#1d4ed8);color:#fff;border-radius:18px;padding:30px 28px;display:flex;gap:18px;align-items:center}
+.hero .big{font-size:54px;background:#fbbf24;border-radius:16px;width:84px;height:84px;display:grid;place-items:center;flex:none}
+.hero h1{margin:0;font-size:27px;line-height:1.25}.hero p{margin:6px 0 0;opacity:.85}
+h2{font-size:20px;margin:30px 0 12px;display:flex;gap:10px;align-items:center;break-after:avoid}
+h2 .n{background:var(--pri);color:#fff;border-radius:9px;min-width:30px;height:30px;display:grid;place-items:center;font-size:15px}
+.card{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0;break-inside:avoid}
+.card .ic{font-size:26px;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;flex:none;background:#e8f0ff}
+.card.g .ic{background:#dcfce7}.card.o .ic{background:#ffedd5}.card.p .ic{background:#f3e8ff}.card.r .ic{background:#fee2e2}
+.card h3{margin:0 0 3px;font-size:16px}.card p{margin:2px 0;color:#38425c}.card ul{margin:4px 0 0;padding-left:20px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;font-weight:600;font-size:14px;display:flex;gap:8px;align-items:center}.kpi span{font-size:22px}
+.chip{display:inline-flex;gap:6px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 11px;margin:3px 4px 3px 0;font-size:13px}
+.chip i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.steps{list-style:none;padding:0;margin:6px 0}.steps li{display:flex;gap:11px;align-items:flex-start;margin:7px 0;break-inside:avoid}
+.steps li>b{background:var(--pri);color:#fff;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;flex:none;font-size:13px;margin-top:2px}
+.note{border-radius:11px;padding:10px 14px;margin:10px 0;font-size:14px;break-inside:avoid}
+.tip{background:#eefbf2;border-left:4px solid #22c55e}.warn{background:#fff7e6;border-left:4px solid #f59e0b}.info{background:#eaf2ff;border-left:4px solid #3b82f6}
+figure{margin:12px 0;break-inside:avoid}figure img{width:100%;max-height:300px;object-fit:cover;border-radius:12px;border:1px solid var(--line);display:block}
+figcaption{font-size:13px;color:var(--mut);margin-top:5px;text-align:center}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}.res div{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:13.5px}
+code{background:#eef2f9;border-radius:5px;padding:1px 6px;font-size:13px}
+.foot{text-align:center;color:var(--mut);font-size:13px;margin:30px 0 8px}
+@media(max-width:620px){.kpis,.res{grid-template-columns:1fr 1fr}.hero{flex-direction:column;text-align:center}}
+@media print{body{background:#fff}.wrap{padding:0}}
+
+.hero.line{background:linear-gradient(135deg,#06a24a,#05c755)}.hero.line .big{background:#fff}
+.row{display:grid;grid-template-columns:230px 1fr;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:9px 0;break-inside:avoid}
+.cmds{display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.cmd{background:#e9fbe9;border:1px solid #bfe8c4;color:#0a6b2f;border-radius:16px 16px 16px 4px;padding:3px 12px;font-weight:700;font-size:14px}
+.alt{font-size:12px;color:var(--mut)}.row h3{margin:0 0 2px;font-size:15.5px}.row p{margin:2px 0;color:#38425c;font-size:14px}
+.row.adm{border-left:5px solid #7c3aed}.row.adm .cmd{background:#f3e8ff;border-color:#ddc3fb;color:#5b21b6}
+.chat{background:#8fb4d9;border-radius:16px;padding:14px;margin:12px 0;break-inside:avoid;display:flex;flex-direction:column;gap:8px}
+.b{max-width:78%;padding:8px 13px;border-radius:16px;font-size:14px;line-height:1.5}
+.me{align-self:flex-end;background:#85e085;border-bottom-right-radius:4px}.bot{align-self:flex-start;background:#fff;border-bottom-left-radius:4px}
+.cap{font-size:12px;color:#fff;text-align:center;opacity:.9}
+table.q{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;font-size:14px}
+table.q td,table.q th{border:1px solid var(--line);padding:7px 10px;text-align:left}table.q th{background:#e8f0ff}
+@media(max-width:620px){.row{grid-template-columns:1fr}}
+</style></head><body><div class="wrap">
+<div class="hero line"><div class="big">💬</div><div><h1>คู่มือผู้ใช้งาน LINE Bot<br>ระบบติดตามเครื่องพิมพ์</h1><p>👤 สำหรับผู้ใช้งานทั่วไป · พิมพ์ข้อความสั้นๆ ในแชท ดู Toner สัญญา ประวัติ และถาม AI ได้ทันที</p></div></div>
+
+<h2><span class="n">★</span>เริ่มใช้ใน 3 ขั้นตอน</h2>
+<ol class="steps"><li><b>1</b><span>เพิ่มบอทเป็นเพื่อนใน LINE ระบบจะ<b>ลงทะเบียนรับแจ้งเตือน Toner วิกฤต (0-3%) ให้อัตโนมัติ</b> ส่งทุกวันจันทร์-ศุกร์</span></li>
+<li><b>2</b><span>พิมพ์ <code>help</code> เพื่อดูรายการคำสั่งทั้งหมดในแชท</span></li>
+<li><b>3</b><span>พิมพ์ <b>เลขสาขา, IP หรือ Serial</b> เช่น <code>5532</code> เพื่อดูข้อมูลสดของเครื่องนั้นทันที</span></li></ol>
+<div class="note tip">ไม่ต้องมีเครื่องหมายพิเศษ ไม่ต้องใส่ / นำหน้า พิมพ์ตัวเล็กหรือใหญ่ก็ได้ และคำสั่งส่วนใหญ่ใช้ได้ทั้งภาษาไทยและอังกฤษ</div>
+<div class="chat"><div class="cap">ตัวอย่างการสนทนา (รูปแบบเท่านั้น ไม่ใช่ข้อมูลจริง)</div>
+<div class="b me">5532</div><div class="b bot">🖨️ ข้อมูลสดของสาขา 5532: ระดับ Toner สถานะออนไลน์ของแต่ละเครื่อง</div>
+<div class="b me">asset 5532</div><div class="b bot">📋 รายละเอียดเครื่อง · วันเริ่ม-สิ้นสุดสัญญา · วันคงเหลือ · Toner</div></div>
+
+<h2><span class="n">1</span>🔍 ค้นหาข้อมูลเครื่อง</h2>
+<div class="row"><div class="cmds"><span class="cmd">5532</span><span class="cmd">10.26.1.56</span><span class="cmd">CNMRR3X3MH</span></div><div><h3>ดูข้อมูลสด</h3><p>พิมพ์ <b>เลขสาขา, IP หรือ Serial Number</b> ได้เลย ไม่ต้องมีคำสั่งนำหน้า ระบบค้นหาทั้งข้อมูล Toner และข้อมูล Asset ให้</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">asset 1101</span><span class="cmd">asset CNMRR3X3MH</span><span class="cmd">asset 10.26.1.56</span><div class="alt">พิมพ์ได้ทั้ง asset · แอสเซท · สัญญา · contract</div></div><div><h3>ดู Asset และสัญญาเช่า</h3><p>ค้นด้วย เลขสาขา / Serial / IP / ชื่อสาขา (เช่น <code>asset ramindra</code>) ผลบอก รุ่น S/N IP จุดติดตั้ง ช่วงสัญญา จำนวนวันคงเหลือ และระดับ Toner</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">asset</span><div class="alt">หรือ เมนู asset</div></div><div><h3>ดูวิธีค้นหา Asset</h3><p>พิมพ์คำเดียวเพื่อดูคำแนะนำการค้นหาแบบละเอียด</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">ประวัติ 5532</span><div class="alt">หรือ history 5532</div></div><div><h3>กราฟ Toner ย้อนหลัง</h3><p>ดูแนวโน้ม Toner ของเครื่อง ใช้ได้กับเลขสาขา IP หรือ Serial</p></div></div>
+
+<h2><span class="n">2</span>📊 ภาพรวมและรายงาน</h2>
+<div class="row"><div class="cmds"><span class="cmd">check</span></div><div><h3>เครื่อง Toner วิกฤต</h3><p>สรุปเครื่องที่ Toner เหลือ 0-3% ตอนนี้</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">ผิดปกติ</span><div class="alt">หรือ anomaly</div></div><div><h3>เครื่องใช้ Toner เปลือง</h3><p>ตรวจจับเครื่องที่ใช้ Toner เร็วผิดปกติเมื่อเทียบกับเครื่องรุ่นเดียวกัน</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">สั่งซื้อ</span><div class="alt">หรือ purchase</div></div><div><h3>พยากรณ์ตลับ Toner</h3><p>ประเมินตลับที่ต้องสั่งล่วงหน้า แยกตามรหัสตลับ เหมาะใช้วางแผนจัดซื้อ</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">รายงานสัปดาห์</span><div class="alt">หรือ weekly</div></div><div><h3>รายงานประจำสัปดาห์</h3><p>สรุปสถานการณ์ Toner รายสัปดาห์</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">สถานะ</span><span class="cmd">วันที่ข้อมูล</span><div class="alt">หรือ status · data</div></div><div><h3>ข้อมูลล่าสุดเมื่อไหร่?</h3><p><b>สถานะ</b> = ผลการนำเข้าข้อมูลล่าสุด · <b>วันที่ข้อมูล</b> = ข้อมูลอัปเดตวันไหน ใช้เช็คก่อนเชื่อตัวเลข</p></div></div>
+
+<h2><span class="n">3</span>🤖 ถาม AI</h2>
+<div class="row"><div class="cmds"><span class="cmd">ถาม Toner สาขาไหนต่ำสุด?</span><div class="alt">หรือ ai … · gpt …</div></div><div><h3>ถามอะไรก็ได้</h3><p>พิมพ์ "ถาม" ตามด้วยคำถาม AI ตอบได้ทั้งความรู้ทั่วไปและข้อมูลระบบเครื่องพิมพ์</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">ai เช็คระบบ</span><div class="alt">หรือ วิเคราะห์ระบบ · ai audit</div></div><div><h3>AI ตรวจสุขภาพระบบ</h3><p>ให้ AI วิเคราะห์ภาพรวมระบบเครื่องพิมพ์แบบ 360° (ใช้เวลานานกว่าคำสั่งอื่นเล็กน้อย)</p></div></div>
+<div class="note warn">คำตอบของ AI ใช้ประกอบการตัดสินใจ ควรตรวจสอบตัวเลขสำคัญกับข้อมูลจริงอีกครั้ง</div>
+
+<h2><span class="n">4</span>🔔 การแจ้งเตือน Toner วิกฤต</h2>
+<div class="row"><div class="cmds"><span class="cmd">สมัครแจ้งเตือน</span><div class="alt">หรือ subscribe</div></div><div><h3>รับแจ้งเตือน</h3><p>รับข้อความอัตโนมัติเมื่อมีเครื่อง Toner วิกฤต (0-3%) ส่งวันจันทร์-ศุกร์</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">ยกเลิกแจ้งเตือน</span><div class="alt">หรือ unsubscribe</div></div><div><h3>เลิกรับแจ้งเตือน</h3><p>หยุดรับข้อความอัตโนมัติ สมัครใหม่ได้ทุกเมื่อ</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">สถานะแจ้งเตือน</span><div class="alt">หรือ เช็คแจ้งเตือน · notify status</div></div><div><h3>เช็คประวัติการแจ้งเตือนวันนี้</h3><p>ดูว่าวันนี้ระบบส่งแจ้งเตือนไปแล้วหรือยัง</p></div></div>
+
+<h2><span class="n">5</span>🆔 ทั่วไป</h2>
+<div class="row"><div class="cmds"><span class="cmd">คู่มือ</span><div class="alt">หรือ manual · วิธีใช้</div></div><div><h3>เปิดคู่มือการใช้งาน</h3><p>บอทส่งการ์ดที่มีปุ่มลองคำสั่ง (แตะแล้วส่งคำสั่งให้เอง) และลิงก์เปิดคู่มือฉบับเต็มของแชทและแดชบอร์ด</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">help</span><div class="alt">หรือ ช่วยเหลือ · เมนู</div></div><div><h3>ดูคำสั่งทั้งหมด</h3><p>แสดงรายการคำสั่งที่ใช้ได้ในแชท</p></div></div>
+<div class="row"><div class="cmds"><span class="cmd">myid</span><div class="alt">หรือ ไอดี · id</div></div><div><h3>ดู LINE User ID ของฉัน</h3><p>ใช้ตอนขอสิทธิ์แอดมิน ส่ง ID นี้ให้ผู้ดูแลระบบ</p></div></div>
+
+<h2><span class="n">?</span>พิมพ์แล้วไม่ได้ผล? ลองดูนี่</h2>
+<div style="break-inside:avoid"><table class="q"><tr><th>อาการ</th><th>วิธีแก้</th></tr>
+<tr><td>ตอบว่า "ไม่พบเครื่องพิมพ์สำหรับ …"</td><td>เช็คเลขสาขา/IP/Serial ว่าพิมพ์ถูก ลองใช้ <code>asset …</code> ค้นอีกทาง</td></tr>
+<tr><td>ตัวเลขดูเก่า</td><td>พิมพ์ <code>วันที่ข้อมูล</code> เพื่อดูว่าข้อมูลอัปเดตล่าสุดเมื่อไหร่</td></tr>
+<tr><td>ขึ้น ⛔ ใช้ได้เฉพาะแอดมิน</td><td>เป็นคำสั่งของผู้ดูแลระบบ ผู้ใช้ทั่วไปไม่ต้องใช้ ถ้าจำเป็นต้องใช้ ส่ง <code>myid</code> ให้ผู้ดูแลเพื่อขอสิทธิ์</td></tr>
+<tr><td>ตอบไม่ครบ / ถูกตัด</td><td>LINE จำกัดความยาว (ราว 4,900 ตัวอักษร) ลองค้นให้เจาะจงขึ้น เช่น ใส่เลขสาขา</td></tr>
+<tr><td>ไม่มีการตอบเลย</td><td>รอสักครู่ (AI ช้ากว่า) ถ้ายังเงียบ แจ้งผู้ดูแลระบบ</td></tr></table></div>
+<div class="foot">คู่มือผู้ใช้งาน LINE Bot · จัดทำเมื่อ 4 ต.ค. 2569</div></div></body></html>
