@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Infographic — ประโยชน์ของระบบติดตามหมึกเครื่องพิมพ์</title>
+<title>Infographic — ประโยชน์ของระบบติดตาม Toner และ Asset เครื่องพิมพ์</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Noto+Sans+Thai:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
@@ -20,12 +20,12 @@
 
   * { box-sizing: border-box; }
   html, body {
-    margin: 0; height: 100%;
+    margin: 0; min-height: 100%;
     background-color: #f1f5f9;
     color: var(--text-primary);
     font-family: 'Noto Sans Thai', sans-serif;
     -webkit-font-smoothing: antialiased;
-    overflow: hidden; /* หน้านี้ตั้งใจให้พอดี 1 จอ ไม่เลื่อน */
+    overflow-x: hidden; scroll-behavior: smooth;
   }
 
   .dots { display: inline-flex; gap: 5px; align-items: center; }
@@ -47,10 +47,10 @@
 
   /* ===== โครงหน้าเต็มจอ 1 หน้า ===== */
   .page {
-    height: 100vh; width: 100vw;
+    min-height: 100vh; width: 100%; max-width: 1400px; margin: 0 auto;
     display: flex; flex-direction: column;
-    padding: 1.2vh 1.6vw;
-    gap: 1.2vh;
+    padding: 14px 2vw 24px;
+    gap: 16px;
   }
 
   /* ===== Header (ปรับฟอนต์ให้เด่นขึ้น) ===== */
@@ -107,7 +107,7 @@
   /* ===== เนื้อหาหลัก: 2 คอลัมน์ ===== */
   .main-grid {
     flex: 1; min-height: 0;
-    display: grid; grid-template-columns: 1.35fr 1fr; gap: 1.2vw;
+    display: grid; grid-template-columns: 1fr; gap: 16px;
   }
 
   .panel {
@@ -132,14 +132,18 @@
   /* ===== Benefit grid ===== */
   .b-stack {
     flex: 1; min-height: 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);
-    gap: 0.8vh 0.8vw;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
   .b-row {
     display: flex; flex-direction: column; justify-content: center; gap: 4px;
     border-radius: 12px; padding: 1vh 1vw;
     border: 1px solid transparent; min-height: 0;
+    transition: transform .25s, box-shadow .25s;
   }
+  .b-row:hover { transform: translateY(-5px); box-shadow: 0 14px 28px -10px rgba(15,23,42,.25); }
+  .b-row:hover .b-icon { transform: scale(1.18) rotate(-6deg); }
+  .b-icon { transition: transform .25s; }
   .b-row.c { background: var(--cyan-bg); border-color: var(--cyan-border); }
   .b-row.m { background: var(--magenta-bg); border-color: var(--magenta-border); }
   .b-row.y { background: var(--yellow-bg); border-color: var(--yellow-border); }
@@ -214,6 +218,24 @@
     .compare-grid { grid-template-columns: 1fr; }
     .p-title { font-size: 22px; }
   }
+
+  .p-header::before { animation: drift 14s ease-in-out infinite alternate; }
+  @keyframes drift { to { transform: translate(2.5%, 4%) scale(1.06); } }
+  .dots span { animation: pulse 2.4s ease-in-out infinite; }
+  .dots span:nth-child(2) { animation-delay: .2s; } .dots span:nth-child(3) { animation-delay: .4s; } .dots span:nth-child(4) { animation-delay: .6s; }
+  @keyframes pulse { 50% { transform: scale(1.5); opacity: .7; } }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  .tab { font: 700 14px 'Noto Sans Thai', sans-serif; border: 1px solid var(--border-color); background: #f8fafc; color: #334155; padding: 8px 16px; border-radius: 100px; cursor: pointer; transition: all .2s; }
+  .tab:hover { border-color: var(--cyan); } .tab.on { background: #0f172a; color: #fff; border-color: #0f172a; box-shadow: 0 6px 14px -4px rgba(15,23,42,.45); }
+  .tp { display: none; grid-template-columns: repeat(3, 1fr); gap: 12px; animation: fadeUp .45s ease both; } .tp.on { display: grid; }
+  .tp div { background: #f8fafc; border: 1px solid var(--border-color); border-left: 4px solid var(--cyan); border-radius: 12px; padding: 14px; font-size: 14.5px; line-height: 1.5; color: #334155; }
+  .tp div:nth-child(2) { border-left-color: var(--magenta); } .tp div:nth-child(3) { border-left-color: var(--yellow); }
+  .tp b { display: block; color: #0f172a; margin-bottom: 4px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } }
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (max-width: 760px) { .p-header-inner { max-width: 100%; } .tp { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } }
 </style>
 </head>
 <body>
@@ -229,7 +251,7 @@
         <span class="dots"><span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span></span>
         &nbsp;สรุปประโยชน์โครงการ
       </div>
-      <h1 class="p-title">ระบบติดตามหมึกเครื่องพิมพ์ ทำงาน<span class="hl">แทนคน</span></h1>
+      <h1 class="p-title">ระบบติดตาม Toner และ Asset เครื่องพิมพ์ ทำงาน<span class="hl">แทนคน</span></h1>
       <p class="p-sub">จากงานที่เคยต้องเปิดไฟล์เช็คทีละเครื่อง สู่ระบบที่ดึงข้อมูล วิเคราะห์ และแจ้งเตือนอัตโนมัติทุกวัน</p>
     </div>
     <div class="trio">
@@ -242,7 +264,7 @@
       <div class="trio-item">
         <div>
           <div class="t-title">🔍 วิเคราะห์ & คาดการณ์</div>
-          <div class="t-sub">ก่อนหมึกหมดจริง</div>
+          <div class="t-sub">ก่อน Toner หมดจริง</div>
         </div>
       </div>
       <div class="trio-item">
@@ -254,13 +276,15 @@
     </div>
   </div>
 
+
+
   <!-- เนื้อหาหลัก -->
   <div class="main-grid">
 
     <!-- Benefits -->
     <div class="panel">
       <div class="p-eyebrow">KEY BENEFITS</div>
-      <h2 class="p-h2">6 เหตุผลที่ระบบนี้คุ้มค่ากับการใช้งาน</h2>
+      <h2 class="p-h2">12 เหตุผลที่ระบบนี้คุ้มค่ากับการใช้งาน</h2>
       <div class="b-stack">
         <div class="b-row c">
           <div class="b-icon">⏱️</div>
@@ -270,7 +294,7 @@
         <div class="b-row m">
           <div class="b-icon">📉</div>
           <h3>ลดการพิมพ์สะดุดกลางงาน</h3>
-          <p>เตือนล่วงหน้าก่อนหมึกหมดจริง</p>
+          <p>เตือนล่วงหน้าก่อน Toner หมดจริง</p>
         </div>
         <div class="b-row y">
           <div class="b-icon">🎯</div>
@@ -292,6 +316,36 @@
           <h3>ต้นทุนต่ำ ดูแลง่าย</h3>
           <p>ไม่มีค่า hosting เพิ่มเติม</p>
         </div>
+        <div class="b-row c">
+          <div class="b-icon">🗺️</div>
+          <h3>เห็นทุกสาขาในแผนที่เดียว</h3>
+          <p>สีหมุดบอกระดับ Toner และเครื่องออฟไลน์ คลิกดูรายเครื่องได้</p>
+        </div>
+        <div class="b-row m">
+          <div class="b-icon">🧭</div>
+          <h3>วางเส้นทางเปลี่ยน Toner</h3>
+          <p>แวะหลายสาขาในรอบเดียว พร้อมเวลาเดินทางที่รวมสภาพจราจร</p>
+        </div>
+        <div class="b-row y">
+          <div class="b-icon">🌧️</div>
+          <h3>เช็คฝน น้ำท่วม รถติด</h3>
+          <p>รู้สภาพเส้นทางและพื้นที่สาขาก่อนออกเดินทาง ลดการเสียเที่ยว</p>
+        </div>
+        <div class="b-row c">
+          <div class="b-icon">🧾</div>
+          <h3>คุมสัญญาเช่าและ Asset</h3>
+          <p>เห็นสัญญาใกล้หมดอายุล่วงหน้า ค้นได้ทั้งในเว็บและ LINE</p>
+        </div>
+        <div class="b-row m">
+          <div class="b-icon">🤖</div>
+          <h3>ถามระบบผ่าน LINE และ AI</h3>
+          <p>พิมพ์เลขสาขา IP หรือ Serial ได้เลย ตรวจเครื่องที่ใช้ Toner ผิดปกติ</p>
+        </div>
+        <div class="b-row y">
+          <div class="b-icon">🛒</div>
+          <h3>วางแผนจัดซื้อ Toner</h3>
+          <p>ประเมินตลับที่ต้องสั่งตามรหัสตลับ ลดทั้งขาดสต็อกและสั่งเกิน</p>
+        </div>
       </div>
     </div>
 
@@ -304,7 +358,7 @@
           <div class="compare-head">🔴 วิธีเดิม</div>
           <ul class="compare-list">
             <li>เปิดไฟล์เช็คเองทีละแถว</li>
-            <li>รู้หมึกหมดจากพนักงานแจ้ง</li>
+            <li>รู้ Toner หมดจากพนักงานแจ้ง</li>
             <li>ไม่รู้จะไปสาขาไหนก่อน</li>
             <li>ไม่มีประวัติเก็บย้อนหลัง</li>
             <li>พึ่งคนกรอกฟอร์มยืนยัน</li>
@@ -314,10 +368,10 @@
           <div class="compare-head">🟢 ระบบใหม่</div>
           <ul class="compare-list">
             <li>ดึง-สรุปข้อมูลอัตโนมัติทุกเช้า</li>
-            <li>แจ้งเตือนล่วงหน้าก่อนหมึกหมด</li>
+            <li>แจ้งเตือนล่วงหน้าก่อน Toner หมด</li>
             <li>จัดลำดับสาขาพร้อมเหตุผล</li>
             <li>เก็บประวัติย้อนหลัง 30 วัน</li>
-            <li>ตรวจจับการเปลี่ยนหมึกอัตโนมัติ</li>
+            <li>ตรวจจับการเปลี่ยน Toner อัตโนมัติ</li>
           </ul>
         </div>
       </div>
@@ -325,21 +379,55 @@
 
   </div>
 
+  <div class="panel">
+    <div class="p-eyebrow">WHO BENEFITS</div>
+    <h2 class="p-h2">ใครได้ประโยชน์อะไร</h2>
+    <div class="tabs">
+      <button class="tab on" data-t="0">👔 ผู้บริหาร</button><button class="tab" data-t="1">🧰 ทีมภาคสนาม</button>
+      <button class="tab" data-t="2">🛒 จัดซื้อ / พัสดุ</button><button class="tab" data-t="3">🛠️ ผู้ดูแลระบบ</button>
+    </div>
+    <div class="tp on" id="tp0"><div><b>เห็นภาพรวมทั้งเครือข่าย</b>Toner และเครื่องออฟไลน์ของทุกสาขาในหน้าเดียว ตัดสินใจจากข้อมูลล่าสุด</div><div><b>รายงานถึงมือทุกสัปดาห์</b>สรุป Toner ประจำสัปดาห์ส่งเข้า LINE และเห็นสัญญาใกล้หมดอายุล่วงหน้า</div><div><b>วัดผลเป็นตัวเลขได้</b>เครื่องหยุดเพราะ Toner หมด เวลาตรวจสถานะ จำนวนเที่ยวภาคสนาม</div></div>
+    <div class="tp" id="tp1"><div><b>รู้ว่าไปสาขาไหนก่อน</b>ระบบจัดลำดับ 5 สาขาที่ควรไปก่อน พร้อมเหตุผล</div><div><b>วางเส้นทางครั้งเดียวจบ</b>แวะหลายสาขา พร้อมเวลาเดินทางที่รวมจราจร</div><div><b>ไม่เสียเที่ยว</b>เช็คฝน น้ำท่วม รถติดก่อนออกเดินทาง</div></div>
+    <div class="tp" id="tp2"><div><b>รู้ว่าต้องเตรียมตลับอะไร</b>รายการ Toner ต่ำกว่า 10% แยกตามรหัสตลับ</div><div><b>สั่งล่วงหน้าแม่นขึ้น</b>ประเมินตลับที่ต้องสั่ง ลดขาดสต็อกและสั่งเกิน</div><div><b>จับความผิดปกติ</b>ตรวจเครื่องที่ใช้ Toner เร็วผิดปกติก่อนสิ้นเปลือง</div></div>
+    <div class="tp" id="tp3"><div><b>ทำงานซ้ำๆ แทนคน</b>นำเข้าข้อมูล แจ้งเตือน และสร้างรายงานอัตโนมัติ</div><div><b>ค้นด้วยการพิมพ์</b>เลขสาขา IP หรือ Serial ใน LINE ไม่ต้องติดตั้งโปรแกรม</div><div><b>มีคู่มือและ AI ช่วย</b>คู่มือแยกผู้ใช้/ผู้ดูแล และ AI วิเคราะห์สถานะระบบ</div></div>
+  </div>
+
   <!-- Footer -->
   <div class="p-footer">
     <div class="brand">
       <span class="dots"><span class="c"></span><span class="m"></span><span class="y"></span><span class="k"></span></span>
-      &nbsp;ระบบติดตามหมึกเครื่องพิมพ์
+      &nbsp;ระบบติดตาม Toner และ Asset เครื่องพิมพ์
     </div>
     <div class="p-tags">
       <span>Apps Script</span>
       <span>Google Sheets</span>
       <span>Gmail API</span>
       <span>LINE Messaging API</span>
+      <span>Gemini AI</span>
+      <span>Longdo</span>
+      <span>GISTDA</span>
     </div>
   </div>
 
 </div>
 
+<script>
+(function () {
+  var els = document.querySelectorAll('.panel, .b-row, .compare-col');
+  els.forEach(function (e, i) { e.classList.add('reveal'); e.style.transitionDelay = (i % 3) * 90 + 'ms'; });
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+    es.forEach(function (x) { if (x.isIntersecting) { x.target.classList.add('in'); io.unobserve(x.target); } });
+  }, { threshold: 0.12 }) : null;
+  els.forEach(function (e) { io ? io.observe(e) : e.classList.add('in'); });
+
+
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.addEventListener('click', function () {
+      document.querySelectorAll('.tab, .tp').forEach(function (x) { x.classList.remove('on'); });
+      t.classList.add('on'); document.getElementById('tp' + t.dataset.t).classList.add('on');
+    });
+  });
+})();
+</script>
 </body>
 </html>
